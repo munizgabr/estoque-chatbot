@@ -1,5 +1,5 @@
 from telegram import Update
-from telegram.ext import *
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
 
 # Dicionário para armazenar informações dos usuários
 user_data = {}
@@ -53,9 +53,9 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.regex(r'^[A-Za-z\s]+,[A-Za-z\s]+$'), set_user_info))
-    dispatcher.add_handler(MessageHandler(Filters.regex(r'^pedido$'), make_order))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, receive_order))
+    dispatcher.add_handler(MessageHandler(filters.regex(r'^[A-Za-z\s]+,[A-Za-z\s]+$'), set_user_info))
+    dispatcher.add_handler(MessageHandler(filters.regex(r'^pedido$'), make_order))
+    dispatcher.add_handler(MessageHandler(filters.text & ~filters.command, receive_order))
 
     updater.start_polling()
 
