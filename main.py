@@ -48,7 +48,10 @@ def receive_order(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(f"Pedido de {name} do setor {sector} recebido com sucesso! Obrigado.")
 
 def main() -> None:
-    updater = Updater("AAGyKdGHzgtGzkxE0VOR4qHGVH_REQZo-oE")
+    # Crie uma fila de atualizações
+    update_queue = Updater().dispatcher.update_queue
+    # Inicialize o Updater com a fila de atualizações
+    updater = Updater("AAGyKdGHzgtGzkxE0VOR4qHGVH_REQZo-oE", use_context=True, update_queue=update_queue)
 
     dispatcher = updater.dispatcher
 
